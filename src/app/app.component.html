@@ -1,4 +1,30 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<form [formGroup]="additionForm" (ngOnSubmit)="onSubmit()">
+  Role: <input type="text" formControlName="jobRole" /> Overall Experience
+  <input type="number" formControlName="jobExperience" />
+  <h1>Preffered Location:</h1>
+  <div formGroupName="prefferedLocation">
+    <input type="radio" id="india" formControlName="india" />
+    <label for="india">india</label>
+    <input type="radio" id="usa" formControlName="usa" />
+    <label for="usa">usa</label>
+    <input type="radio" id="uk" formControlName="uk" />
+    <label for="uk">uk</label>
+  </div>
+  <h1>Experience (s):</h1>
+  <div
+    formArrayName="experiences"
+    *ngFor="let exp of experiences.controls; let i = index"
+  >
+    <div formGroupName="i">
+      Company:
+      <input type="text" placeholder="Company Name" formContoleName="comapny" />
+      <br />Experience:
+      <input type="number" formContoleName="experience" />
+      <button type="button" [disabled]="!i" (click)="removeExp(i)">X</button>
+    </div>
+    <br />
+    <button type="button" (click)="addExp()">Add Experience</button>
+  </div>
+  <br />
+  <button type="submit">Save!</button>
+</form>
